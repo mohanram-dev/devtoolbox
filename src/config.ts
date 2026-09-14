@@ -7,7 +7,7 @@ export const SITE = {
   description:
     'Fast, free, privacy-friendly developer tools that run entirely in your browser: JSON formatter, Base64, JWT decoder, regex tester, cron parser, hash generator and more.',
   // Set to your production domain (no trailing slash). Used for canonical URLs, sitemap and OG tags.
-  url: 'https://devtoolbox.example.com',
+  url: 'https://devtools.9blog.in',
   author: 'DevToolbox',
   twitter: '@devtoolbox',
   contactEmail: 'hello@devtoolbox.example.com',

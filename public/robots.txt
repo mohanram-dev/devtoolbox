@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://devtoolbox.example.com/sitemap-index.xml
+Sitemap: https://devtools.9blog.in/sitemap-index.xml

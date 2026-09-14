@@ -9,7 +9,9 @@ import { SITE } from './src/config';
 export default defineConfig({
   site: SITE.url,
   trailingSlash: 'always',
-  integrations: [react(), sitemap({ filter: (page) => !page.endsWith('/404/') })],
+  // The blog (WordPress) owns the domain root; everything from this build lives under /tools/.
+  build: { assets: 'tools/_astro' },
+  integrations: [react(), sitemap({ filter: (page) => page.includes('/tools/') })],
   vite: {
     plugins: [tailwindcss()],
   },

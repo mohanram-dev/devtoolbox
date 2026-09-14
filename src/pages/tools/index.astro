@@ -2,9 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import ToolCard from '../../components/ToolCard.astro';
+import ToolSearch from '../../components/ToolSearch';
 import Icon from '../../components/Icon.astro';
 import { SITE } from '../../config';
-import { CATEGORIES, TOOLS, toolsInCategory } from '../../data/tools';
+import { CATEGORIES, TOOLS, toolsInCategory, toolBySlug } from '../../data/tools';
+
+const searchIndex = TOOLS.map(({ slug, name, tagline, category, keywords }) => ({ slug, name, tagline, category, keywords }));
+const popular = ['json-formatter', 'jwt-decoder', 'base64-encode-decode', 'regex-tester', 'cron-parser'].map(toolBySlug).filter(Boolean);
 
 const TINT: Record<string, string> = {
   Formatters: 'bg-sky-100 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300',
@@ -13,41 +17,80 @@ const TINT: Record<string, string> = {
   Converters: 'bg-amber-100 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300',
   Testing: 'bg-rose-100 text-rose-600 dark:bg-rose-500/15 dark:text-rose-300',
 };
+
+const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url + '/tools/', description: SITE.description }];
 ---
 
-<Base
-  title={`All Developer Tools (${TOOLS.length}) | ${SITE.name}`}
-  description={`Browse all ${TOOLS.length} free online developer tools on ${SITE.name}: formatters, encoders, generators, converters and testing utilities.`}
-  path="/tools/"
->
-  <div class="pt-6">
-    <span class="badge">{TOOLS.length} tools</span>
-    <h1 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">All tools</h1>
-    <p class="muted mt-2 max-w-xl">Grouped by category. All free, all client-side, all instant.</p>
-  </div>
+<Base title={`${SITE.name} – ${SITE.tagline}`} description={SITE.description} path="/tools/" jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="pb-14 pt-14 text-center sm:pt-20">
+    <span class="badge">
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+      {TOOLS.length} tools · 100% client-side · no sign-up
+    </span>
+    <h1 class="mx-auto mt-6 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl">
+      Developer tools that <span class="text-gradient">just work</span>, right in your browser.
+    </h1>
+    <p class="muted mx-auto mt-5 max-w-2xl text-lg leading-8">
+      Format JSON, decode JWTs, test regex, parse cron schedules and more. Everything runs locally — your data never leaves your device.
+    </p>
 
-  <nav class="mt-6 flex flex-wrap gap-2" aria-label="Jump to category">
-    {CATEGORIES.map((c) => (
-      <a href={`#${c.name.toLowerCase()}`} class="badge transition hover:border-brand-400 hover:text-brand-500">{c.name}</a>
-    ))}
-  </nav>
+    <div class="mt-9">
+      <ToolSearch tools={searchIndex} client:idle />
+    </div>
+
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm">
+      <span class="muted">Popular:</span>
+      {popular.map((t) => (
+        <a href={`/tools/${t!.slug}/`} class="badge transition hover:border-brand-400 hover:text-brand-500">
+          {t!.name.replace(/\s*\(.*\)$/, '')}
+        </a>
+      ))}
+    </div>
+  </section>
 
   <AdSlot slot="headerBanner" format="horizontal" />
 
+  <!-- Category sections -->
   {CATEGORIES.map((c) => {
     const items = toolsInCategory(c.name);
     if (!items.length) return null;
     return (
-      <section id={c.name.toLowerCase()} class="mt-12 scroll-mt-24">
+      <section id={c.name.toLowerCase()} class="mt-14 scroll-mt-24">
         <div class="flex items-center gap-3">
-          <span class={`grid h-9 w-9 place-items-center rounded-lg ${TINT[c.name]}`}><Icon name={c.name} class="h-4.5 w-4.5" /></span>
-          <h2 class="text-xl font-bold tracking-tight">{c.name}</h2>
-          <span class="muted text-sm">· {items.length}</span>
+          <span class={`grid h-10 w-10 place-items-center rounded-xl ${TINT[c.name]}`}>
+            <Icon name={c.name} class="h-5 w-5" />
+          </span>
+          <div>
+            <h2 class="text-xl font-bold tracking-tight">{c.name}</h2>
+            <p class="muted text-sm">{c.blurb}</p>
+          </div>
         </div>
-        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((t) => <ToolCard tool={t} />)}
         </div>
       </section>
     );
   })}
+
+  <!-- Value props -->
+  <section class="card relative mt-20 overflow-hidden p-8 sm:p-10">
+    <div class="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-brand-500/15 blur-3xl"></div>
+    <div class="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-accent-500/15 blur-3xl"></div>
+    <div class="relative grid gap-8 sm:grid-cols-3">
+      {[
+        { icon: 'shield', title: 'Private by design', text: 'Every tool is pure client-side JavaScript. JSON, tokens and passwords never leave your machine.' },
+        { icon: 'infinity', title: 'No accounts, no limits', text: 'Use any tool as often as you like. No sign-up walls, no rate limits, no premium tier.' },
+        { icon: 'zap', title: 'Fast everywhere', text: 'Static pages with tiny scripts load instantly on desktop and mobile, even on slow connections.' },
+      ].map((v) => (
+        <div>
+          <span class="bg-brand-gradient grid h-10 w-10 place-items-center rounded-xl text-white shadow-[0_6px_16px_-6px_rgb(99_102_241/.8)]">
+            <Icon name={v.icon} class="h-5 w-5" />
+          </span>
+          <h3 class="mt-4 font-semibold">{v.title}</h3>
+          <p class="muted mt-1.5 text-sm leading-6">{v.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
 </Base>

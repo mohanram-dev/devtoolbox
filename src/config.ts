@@ -2,19 +2,19 @@
  * Site-wide configuration. Edit this file when you deploy.
  */
 export const SITE = {
-  name: 'DevToolbox',
-  tagline: 'Free online developer tools',
+  name: '9Blog Tools',
+  tagline: 'Free developer & AI tools, right in your browser',
   description:
     'Fast, free, privacy-friendly developer tools that run entirely in your browser: JSON formatter, Base64, JWT decoder, regex tester, cron parser, hash generator and more.',
   // Set to your production domain (no trailing slash). Used for canonical URLs, sitemap and OG tags.
-  url: 'https://devtools.9blog.in',
-  author: 'DevToolbox',
-  twitter: '@devtoolbox',
-  contactEmail: 'hello@devtoolbox.example.com',
+  url: 'https://9blog.in',
+  author: '9Blog',
+  twitter: '',
+  contactEmail: '',
   // Google Search Console HTML-tag verification token (content attribute only).
   googleSiteVerification: 'LPXpnqUJDSq5ntAtroq0e03hDfOL3iTk4O_iMeiiamg',
   // Cloudflare Web Analytics beacon token (empty string disables it).
-  cloudflareAnalyticsToken: 'c448272b534540d1a3e4f1253fc49b78',
+  cloudflareAnalyticsToken: '',
 };
 
 /**
@@ -40,4 +40,13 @@ export const ADS = {
     inToolBottom: '',
     sidebar: '',
   } as Record<string, string>,
+};
+
+/** Links back into the WordPress blog (root of the same domain). */
+export const BLOG = {
+  home: 'https://9blog.in/',
+  about: 'https://9blog.in/about-us/',
+  contact: 'https://9blog.in/contact-us/',
+  privacy: 'https://9blog.in/privacy-policy/',
+  terms: 'https://9blog.in/terms-and-disclaimer/',
 };

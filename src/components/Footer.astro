@@ -1,5 +1,5 @@
 ---
-import { SITE } from '../config';
+import { SITE, BLOG } from '../config';
 import { CATEGORIES, TOOLS, toolsInCategory } from '../data/tools';
 const year = new Date().getFullYear();
 ---
@@ -8,7 +8,7 @@ const year = new Date().getFullYear();
   <div class="bg-brand-gradient absolute inset-x-0 top-0 h-px opacity-60"></div>
   <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]">
     <div>
-      <a href="/" class="flex items-center gap-2.5 text-[17px] font-bold tracking-tight">
+      <a href="/tools/" class="flex items-center gap-2.5 text-[17px] font-bold tracking-tight">
         <span class="bg-brand-gradient grid h-8 w-8 place-items-center rounded-lg font-mono text-xs font-semibold text-white">{'</>'}</span>
         {SITE.name}
       </a>
@@ -34,10 +34,10 @@ const year = new Date().getFullYear();
       <span>© {year} {SITE.name}. All rights reserved.</span>
       <nav class="flex flex-wrap gap-x-5 gap-y-1">
         <a href="/tools/" class="hover:text-(--color-ink)">All tools</a>
-        <a href="/about/" class="hover:text-(--color-ink)">About</a>
-        <a href="/contact/" class="hover:text-(--color-ink)">Contact</a>
-        <a href="/privacy/" class="hover:text-(--color-ink)">Privacy</a>
-        <a href="/terms/" class="hover:text-(--color-ink)">Terms</a>
+        <a href={BLOG.home} class="hover:text-(--color-ink)">Blog</a> <a href={BLOG.about} class="hover:text-(--color-ink)">About</a>
+        <a href={BLOG.contact} class="hover:text-(--color-ink)">Contact</a>
+        <a href={BLOG.privacy} class="hover:text-(--color-ink)">Privacy</a>
+        <a href={BLOG.terms} class="hover:text-(--color-ink)">Terms</a>
       </nav>
     </div>
   </div>

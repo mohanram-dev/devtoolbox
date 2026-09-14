@@ -1,12 +1,12 @@
 ---
-import { SITE } from '../config';
+import { SITE, BLOG } from '../config';
 import { CATEGORIES } from '../data/tools';
 import Icon from './Icon.astro';
 ---
 
 <header class="sticky top-0 z-40 border-b line bg-[color-mix(in_srgb,var(--color-surface)_80%,transparent)] backdrop-blur-xl">
   <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-    <a href="/" class="flex items-center gap-2.5 text-[17px] font-bold tracking-tight">
+    <a href="/tools/" class="flex items-center gap-2.5 text-[17px] font-bold tracking-tight">
       <span class="bg-brand-gradient grid h-9 w-9 place-items-center rounded-xl font-mono text-[13px] font-semibold text-white shadow-[0_4px_14px_-4px_rgb(99_102_241/.7)]">{'</>'}</span>
       {SITE.name}
     </a>
@@ -23,6 +23,7 @@ import Icon from './Icon.astro';
     </nav>
 
     <div class="flex items-center gap-2">
+      <a href={BLOG.home} class="muted hidden rounded-lg px-3 py-1.5 text-sm font-medium transition hover:bg-(--color-surface-2) hover:text-(--color-ink) sm:inline-flex">← Blog</a>
       <button
         id="theme-toggle"
         type="button"

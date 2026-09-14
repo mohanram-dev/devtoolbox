@@ -16,7 +16,7 @@ import { SITE } from '../src/config.ts';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const fontsDir = path.join(root, 'scripts', 'fonts');
-const outDir = path.join(root, 'public', 'og');
+const outDir = path.join(root, 'public', 'tools', 'og');
 mkdirSync(outDir, { recursive: true });
 
 const fonts = [
@@ -105,7 +105,7 @@ const force = process.argv.includes('--force');
 const toolsMtime = statSync(path.join(root, 'src', 'data', 'tools.ts')).mtimeMs;
 let made = 0;
 
-await render(card({ title: `${TOOLS.length} free developer tools, right in your browser.`, subtitle: SITE.description, category: null, icon: null }), path.join(root, 'public', 'og.png'));
+await render(card({ title: `${TOOLS.length} free developer tools, right in your browser.`, subtitle: SITE.description, category: null, icon: null }), path.join(root, 'public', 'tools', 'og', 'site.png'));
 made++;
 
 for (const t of TOOLS) {

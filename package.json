@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "pnpm run og && pnpm run ads-txt && astro build",
+    "build": "pnpm run og && astro build && node scripts/postbuild.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "og": "node --experimental-strip-types scripts/og.mjs",

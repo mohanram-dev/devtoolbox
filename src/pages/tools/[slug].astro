@@ -25,6 +25,13 @@ import HtmlEntities from '../../components/tools/HtmlEntities';
 import LoremIpsum from '../../components/tools/LoremIpsum';
 import QrCode from '../../components/tools/QrCode';
 import ImageBase64 from '../../components/tools/ImageBase64';
+import JsonToTs from '../../components/tools/JsonToTs';
+import SqlFormatter from '../../components/tools/SqlFormatter';
+import CodeBeautifier from '../../components/tools/CodeBeautifier';
+import ChmodCalculator from '../../components/tools/ChmodCalculator';
+import SubnetCalculator from '../../components/tools/SubnetCalculator';
+import JsonSchemaValidator from '../../components/tools/JsonSchemaValidator';
+import UnicodeEscape from '../../components/tools/UnicodeEscape';
 
 
 export function getStaticPaths() {
@@ -146,6 +153,13 @@ const jsonLd = [
           {slug === 'lorem-ipsum' && <LoremIpsum client:load />}
           {slug === 'qr-code-generator' && <QrCode client:load />}
           {slug === 'image-to-base64' && <ImageBase64 client:load />}
+          {slug === 'json-to-typescript' && <JsonToTs client:load />}
+          {slug === 'sql-formatter' && <SqlFormatter client:load />}
+          {slug === 'code-beautifier' && <CodeBeautifier client:load />}
+          {slug === 'chmod-calculator' && <ChmodCalculator client:load />}
+          {slug === 'subnet-calculator' && <SubnetCalculator client:load />}
+          {slug === 'json-schema-validator' && <JsonSchemaValidator client:load />}
+          {slug === 'unicode-escape' && <UnicodeEscape client:load />}
         </div>
       </section>
 

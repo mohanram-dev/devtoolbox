@@ -356,6 +356,179 @@ export const TOOLS: Tool[] = [
     ],
     related: ['uuid-generator', 'hash-generator', 'base64-encode-decode'],
   },
+  {
+    slug: 'json-to-csv',
+    name: 'JSON to CSV / CSV to JSON',
+    tagline: 'Convert between JSON arrays and CSV spreadsheets in either direction.',
+    description:
+      'Convert JSON to CSV or CSV to JSON online. Handles quoted fields, custom delimiters and nested values. Paste data, copy the result — runs in your browser.',
+    category: 'Converters',
+    keywords: ['json to csv', 'csv to json', 'json csv converter', 'convert csv to json online', 'json array to csv', 'csv to json array'],
+    howTo: [
+      'Choose the direction: CSV → JSON or JSON → CSV.',
+      'Paste your data. For CSV, the first row is treated as the column headers. For JSON, paste an array of objects.',
+      'Pick a delimiter if your file uses semicolons, tabs or pipes instead of commas.',
+      'Copy the converted output.',
+    ],
+    about: [
+      'CSV is the universal spreadsheet exchange format; JSON is what APIs and JavaScript speak. Moving data between them is one of the most common chores in data work — exporting an API response to Excel, or importing a spreadsheet into a script.',
+      'The parser follows RFC 4180: fields containing commas, quotes or line breaks are wrapped in double quotes, and embedded quotes are doubled. Many quick converters get this wrong and corrupt names like "Smith, John".',
+      'When converting JSON to CSV, the column headers are the union of every key found across all objects, so ragged data still produces a valid table. Nested objects and arrays are serialised as JSON strings inside the cell.',
+    ],
+    faq: [
+      { q: 'Are numbers and booleans preserved?', a: 'CSV has no types — everything becomes a string. When converting CSV → JSON, values stay as strings so no data is misinterpreted; cast them in your code if needed.' },
+      { q: 'How do I convert an Excel file?', a: 'In Excel or Google Sheets, use File → Download → CSV, then paste the CSV here.' },
+      { q: 'Is there a size limit?', a: 'Tens of thousands of rows convert in under a second. Very large files are limited only by your browser memory.' },
+    ],
+    related: ['json-formatter', 'yaml-to-json', 'text-diff', 'case-converter'],
+  },
+  {
+    slug: 'yaml-to-json',
+    name: 'YAML to JSON / JSON to YAML',
+    tagline: 'Convert YAML config files to JSON and back, with validation.',
+    description:
+      'Convert YAML to JSON or JSON to YAML online. Validates syntax, preserves nesting and types, and shows errors with line numbers. Free, private, browser-based.',
+    category: 'Converters',
+    keywords: ['yaml to json', 'json to yaml', 'yaml converter', 'yaml validator', 'convert yaml online', 'yml to json'],
+    howTo: [
+      'Choose YAML → JSON or JSON → YAML.',
+      'Paste your document. Errors (bad indentation, unclosed quotes) are reported with the line number.',
+      'Copy the converted result.',
+    ],
+    about: [
+      'YAML is the configuration language of Kubernetes, Docker Compose, GitHub Actions and CI systems; JSON is what those tools ultimately consume. Converting between them lets you validate a config, feed it to an API, or reformat a JSON payload into something readable.',
+      'This converter uses the YAML 1.2 specification, so it handles anchors, multi-line strings, comments (dropped on conversion) and the tricky cases — like the string "no" that YAML 1.1 would silently turn into false.',
+      'Output YAML uses two-space indentation with no line wrapping, matching the style most linters expect.',
+    ],
+    faq: [
+      { q: 'Why did my comments disappear?', a: 'JSON has no comment syntax, so comments cannot survive a YAML → JSON conversion.' },
+      { q: 'Does it support multiple documents (---)?', a: 'Only the first document is converted. Split multi-document files before pasting.' },
+      { q: 'Are tabs allowed in YAML?', a: 'No — YAML requires spaces for indentation. The validator will flag tabs.' },
+    ],
+    related: ['json-formatter', 'json-to-csv', 'base64-encode-decode'],
+  },
+  {
+    slug: 'markdown-preview',
+    name: 'Markdown Preview & Editor',
+    tagline: 'Write Markdown and see the rendered result live, or grab the HTML.',
+    description:
+      'Free online Markdown editor with live preview. Supports GitHub-flavoured Markdown: tables, task lists, code blocks and strikethrough. Copy the generated HTML.',
+    category: 'Formatters',
+    keywords: ['markdown preview', 'markdown editor online', 'markdown to html', 'md preview', 'github markdown preview', 'markdown viewer'],
+    howTo: [
+      'Type or paste Markdown on the left; the rendered preview updates as you type.',
+      'Switch to the HTML tab to see the generated markup.',
+      'Click Copy HTML to use it in a page or CMS.',
+    ],
+    about: [
+      'Markdown is the lightweight markup used in README files, GitHub issues, documentation sites and note-taking apps. Because every renderer differs slightly, a live preview is the quickest way to check that tables, nested lists and code fences look the way you intend.',
+      'This editor follows GitHub-flavoured Markdown (GFM), which adds tables, task lists, strikethrough and automatic links to the original CommonMark spec.',
+      'Rendering happens in your browser. Script tags and inline event handlers are stripped from the output as a precaution.',
+    ],
+    faq: [
+      { q: 'Which Markdown flavour is this?', a: 'GitHub-flavoured Markdown (GFM), the most widely used dialect.' },
+      { q: 'Can I export to PDF?', a: 'Use your browser: switch to Preview, then Print → Save as PDF.' },
+      { q: 'Does it save my document?', a: 'No — nothing leaves your tab. Copy the text before closing.' },
+    ],
+    related: ['html-entities', 'json-formatter', 'text-diff'],
+  },
+  {
+    slug: 'html-entities',
+    name: 'HTML Entity Encoder / Decoder',
+    tagline: 'Escape special characters for HTML, or decode &amp; &lt; &#39; back to text.',
+    description:
+      'Encode text to HTML entities (&amp;, &lt;, &quot;, &copy;) or decode entities back to plain text. Safe for displaying code and user input on web pages. Free online tool.',
+    category: 'Encoders',
+    keywords: ['html entity encoder', 'html entities decoder', 'html escape', 'html unescape', 'encode html special characters', 'decode html entities'],
+    howTo: [
+      'Choose Encode or Decode.',
+      'Paste your text. Encoding escapes &, <, >, quotes and common symbols; enable "Encode all non-ASCII" to convert every accented or Unicode character to a numeric entity.',
+      'Copy the result.',
+    ],
+    about: [
+      'Characters like < and & have special meaning in HTML. To display them literally — for example, when showing a code sample — they must be written as entities: &lt; and &amp;. Forgetting to escape user input is also the root cause of cross-site scripting (XSS) bugs.',
+      'Named entities (&copy;, &mdash;) are readable; numeric entities (&#169;, &#8212;) work for any Unicode character. Both are decoded identically by browsers.',
+      "Decoding uses the browser's own HTML parser, so every one of the 2,000+ named entities is recognised, not just a hand-picked list.",
+    ],
+    faq: [
+      { q: 'Should I encode every character on my page?', a: "No. Modern pages are UTF-8, so only &, <, >, \" and ' need escaping. Encode everything only for legacy ASCII-only systems." },
+      { q: 'What is the difference between &#39; and &apos;?', a: 'Both mean an apostrophe. &#39; works in every browser; &apos; is XML/HTML5 only.' },
+    ],
+    related: ['url-encode-decode', 'base64-encode-decode', 'markdown-preview'],
+  },
+  {
+    slug: 'lorem-ipsum',
+    name: 'Lorem Ipsum Generator',
+    tagline: 'Generate placeholder paragraphs, sentences or words for mockups.',
+    description:
+      'Generate Lorem Ipsum placeholder text online — choose paragraphs, sentences or word count, optionally wrapped in <p> tags. Instant, free, no sign-up.',
+    category: 'Generators',
+    keywords: ['lorem ipsum generator', 'placeholder text', 'dummy text generator', 'lorem ipsum paragraphs', 'filler text', 'lipsum'],
+    howTo: [
+      'Choose how much text you need and whether to count paragraphs, sentences or words.',
+      'Toggle "Wrap in <p>" for HTML-ready output, or turn off the classic opening line for fully random text.',
+      'Click Copy.',
+    ],
+    about: [
+      'Lorem Ipsum is scrambled Latin derived from a passage by Cicero, used since the 1500s as filler so that layouts can be judged without the distraction of meaningful content. Its letter distribution resembles English, which is why it still looks natural in a design.',
+      'Designers use it to test typography and spacing; developers use it to fill templates and seed test databases. The generator produces varied sentence lengths so the result looks like real prose rather than a repeated block.',
+    ],
+    faq: [
+      { q: 'Does the text mean anything?', a: 'No. It is intentionally nonsensical so that reviewers focus on the design rather than the words.' },
+      { q: 'Can I get a specific number of characters?', a: 'Generate by words and adjust the count — the character total is shown under the output.' },
+    ],
+    related: ['password-generator', 'uuid-generator', 'markdown-preview'],
+  },
+  {
+    slug: 'qr-code-generator',
+    name: 'QR Code Generator',
+    tagline: 'Create QR codes for URLs, text or Wi-Fi and download as PNG or SVG.',
+    description:
+      'Free QR code generator. Turn any URL or text into a QR code, pick size, colours and error-correction level, and download as PNG or SVG. No watermark, no sign-up.',
+    category: 'Generators',
+    keywords: ['qr code generator', 'create qr code', 'qr code maker', 'free qr code', 'qr code svg', 'url to qr code'],
+    howTo: [
+      'Paste the URL or text you want to encode.',
+      'Adjust the size, colours and error-correction level; the preview updates live.',
+      'Download as PNG (for print or slides) or SVG (scales to any size).',
+    ],
+    about: [
+      'A QR code stores text in a grid of black and white modules that phone cameras can read instantly. URLs are the most common payload, but any text works — including Wi-Fi credentials (WIFI:T:WPA;S:name;P:password;;), contact cards (vCard) and plain messages.',
+      'Error correction lets the code remain scannable even when part of it is damaged or covered: L tolerates 7% loss, H tolerates 30%. Higher levels make the code denser, so use L or M for long URLs and H if you plan to overlay a logo.',
+      'Codes are generated in your browser and never sent to a server, so the link stays private and there is no tracking redirect — unlike many "free" QR services that route scans through their own domain.',
+    ],
+    faq: [
+      { q: 'Do these QR codes expire?', a: 'No. The data is encoded directly in the image, so it works forever without depending on this site.' },
+      { q: 'PNG or SVG?', a: 'SVG for print and anything that will be resized; PNG for quick sharing, slides and chat apps.' },
+      { q: "Why won't my code scan?", a: 'Make sure there is contrast between foreground and background, keep the quiet zone (margin) intact, and avoid very long text at small sizes.' },
+    ],
+    related: ['url-encode-decode', 'image-to-base64', 'uuid-generator'],
+  },
+  {
+    slug: 'image-to-base64',
+    name: 'Image to Base64 Converter',
+    tagline: 'Turn images into Base64 data URLs for CSS and HTML, or decode Base64 back to an image.',
+    description:
+      'Convert an image to a Base64 data URL for inline use in HTML, CSS or JSON — or decode a Base64 string back to an image. Drag and drop, up to 10 MB, never uploaded.',
+    category: 'Encoders',
+    keywords: ['image to base64', 'base64 to image', 'png to base64', 'base64 image encoder', 'data url generator', 'convert image to base64 online'],
+    howTo: [
+      'Drop an image onto the box or click to pick one.',
+      'Copy the data URL, or the ready-made CSS background-image / HTML img snippet.',
+      'To go the other way, switch to Base64 → Image, paste the string and download the preview.',
+    ],
+    about: [
+      'A data URL embeds a file directly in a page: data:image/png;base64,iVBOR… Browsers render it like any image, with no extra HTTP request. That makes it useful for small icons, email templates, single-file HTML reports and quick prototypes.',
+      'The trade-off is size — Base64 is about 33% larger than the binary file and cannot be cached separately. It is a good fit for images under a few kilobytes and a poor fit for photos.',
+      'Encoding uses the FileReader API in your browser; the image is never uploaded, so this is safe for private screenshots and unreleased assets.',
+    ],
+    faq: [
+      { q: 'What formats are supported?', a: 'Anything your browser can open: PNG, JPEG, GIF, WebP, SVG, BMP, AVIF.' },
+      { q: 'Does converting reduce image quality?', a: 'No. Base64 is a lossless re-encoding of the exact same bytes.' },
+      { q: 'How do I use the result in CSS?', a: 'Copy the CSS row — it gives you a complete background-image: url("data:…") declaration.' },
+    ],
+    related: ['base64-encode-decode', 'qr-code-generator', 'color-converter'],
+  },
 ];
 
 export const toolBySlug = (slug: string) => TOOLS.find((t) => t.slug === slug);

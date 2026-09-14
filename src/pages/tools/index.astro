@@ -23,17 +23,12 @@ const jsonLd = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SI
 
 <Base title={`${SITE.name} – ${SITE.tagline}`} description={SITE.description} path="/tools/" jsonLd={jsonLd}>
   <!-- Hero -->
-  <section class="pb-14 pt-14 text-center sm:pt-20">
+  <section class="pb-10 pt-10 text-center sm:pt-12">
     <span class="badge">
       <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
       {TOOLS.length} tools · 100% client-side · no sign-up
     </span>
-    <h1 class="mx-auto mt-6 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl">
-      Developer tools that <span class="text-gradient">just work</span>, right in your browser.
-    </h1>
-    <p class="muted mx-auto mt-5 max-w-2xl text-lg leading-8">
-      Format JSON, decode JWTs, test regex, parse cron schedules and more. Everything runs locally — your data never leaves your device.
-    </p>
+    <h1 class="mt-5 text-2xl font-bold tracking-tight sm:text-3xl">Free developer &amp; AI tools — <span class="text-gradient">no sign-up</span></h1>
 
     <div class="mt-9">
       <ToolSearch tools={searchIndex} client:idle />

@@ -32,6 +32,13 @@ import ChmodCalculator from '../../components/tools/ChmodCalculator';
 import SubnetCalculator from '../../components/tools/SubnetCalculator';
 import JsonSchemaValidator from '../../components/tools/JsonSchemaValidator';
 import UnicodeEscape from '../../components/tools/UnicodeEscape';
+import BaseConverter from '../../components/tools/BaseConverter';
+import WordCounter from '../../components/tools/WordCounter';
+import UrlParser from '../../components/tools/UrlParser';
+import HttpStatusCodes from '../../components/tools/HttpStatusCodes';
+import MetaTagGenerator from '../../components/tools/MetaTagGenerator';
+import RobotsTxtGenerator from '../../components/tools/RobotsTxtGenerator';
+import LineSorter from '../../components/tools/LineSorter';
 
 
 export function getStaticPaths() {
@@ -160,6 +167,13 @@ const jsonLd = [
           {slug === 'subnet-calculator' && <SubnetCalculator client:load />}
           {slug === 'json-schema-validator' && <JsonSchemaValidator client:load />}
           {slug === 'unicode-escape' && <UnicodeEscape client:load />}
+          {slug === 'number-base-converter' && <BaseConverter client:load />}
+          {slug === 'word-counter' && <WordCounter client:load />}
+          {slug === 'url-parser' && <UrlParser client:load />}
+          {slug === 'http-status-codes' && <HttpStatusCodes client:load />}
+          {slug === 'meta-tag-generator' && <MetaTagGenerator client:load />}
+          {slug === 'robots-txt-generator' && <RobotsTxtGenerator client:load />}
+          {slug === 'line-sorter' && <LineSorter client:load />}
         </div>
       </section>
 

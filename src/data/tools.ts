@@ -703,6 +703,180 @@ export const TOOLS: Tool[] = [
     ],
     related: ['html-entities', 'url-encode-decode', 'base64-encode-decode'],
   },
+  {
+    slug: 'number-base-converter',
+    name: 'Number Base Converter (Binary, Hex, Octal, Decimal)',
+    tagline: 'Convert numbers between binary, octal, decimal, hexadecimal and base 36.',
+    description:
+      'Convert between binary, decimal, hexadecimal and octal online. Arbitrary-precision, accepts 0x/0b prefixes, shows bit count and grouped output. Free and instant.',
+    category: 'Converters',
+    keywords: ['binary to decimal', 'hex to decimal', 'decimal to binary', 'decimal to hex', 'hex to binary', 'number base converter', 'octal converter'],
+    howTo: [
+      'Type a number and pick which base it is in — or use a prefix (0x for hex, 0b for binary, 0o for octal) and it is detected automatically.',
+      'Read the value in every other base below. Binary and hex are grouped in fours for readability.',
+      'Click Copy on the row you need.',
+    ],
+    about: [
+      'Programmers meet four bases constantly: binary for bit flags and masks, hexadecimal for colours, memory addresses and hashes, octal for Unix permissions, and decimal for everything else. Converting between them by hand is slow and error-prone above a few digits.',
+      'This converter uses arbitrary-precision integers, so 64-bit values, 256-bit hashes and anything larger convert exactly — there is no rounding at 2^53 the way ordinary JavaScript numbers do.',
+      'The bit-count row tells you how many bits are needed to store the number, which is useful when sizing integer columns or packing flags.',
+    ],
+    faq: [
+      { q: 'How do I convert a negative number?', a: 'Prefix it with a minus sign. Output uses sign-magnitude form; two\u2019s complement depends on a fixed bit width and is not shown.' },
+      { q: 'Why are the binary digits grouped in fours?', a: 'Each group of four bits corresponds to exactly one hex digit, which makes the two easy to read side by side.' },
+      { q: 'What is base 36?', a: 'Digits 0-9 plus letters a-z. It is used for short IDs and URL slugs because it packs the most information into alphanumeric characters.' },
+    ],
+    related: ['color-converter', 'unicode-escape', 'hash-generator', 'subnet-calculator'],
+  },
+  {
+    slug: 'word-counter',
+    name: 'Word & Character Counter',
+    tagline: 'Count words, characters, sentences and paragraphs with reading time and keyword density.',
+    description:
+      'Free online word counter. Counts words, characters (with and without spaces), sentences, paragraphs, reading and speaking time, plus top keywords. Checks tweet and meta-description limits.',
+    category: 'Testing',
+    keywords: ['word counter', 'character counter', 'word count online', 'letter counter', 'count characters', 'reading time calculator', 'sentence counter'],
+    howTo: [
+      'Paste or type your text. Counts update as you type.',
+      'Check the limits panel for tweet (280) and meta-description (155) character budgets.',
+      'Use the keyword panel to spot over-used words.',
+    ],
+    about: [
+      'Word and character limits are everywhere: essays, tweets, meta descriptions, ad headlines, App Store copy. This counter shows every common metric at once so you can hit a target without counting by hand.',
+      'Reading time assumes 225 words per minute, the average for adults reading English on screen; speaking time uses 150 words per minute, typical for presentations and voice-over.',
+      'Characters are counted as Unicode code points, so an emoji counts as one character — the same way Twitter/X and most modern platforms count.',
+    ],
+    faq: [
+      { q: 'Does it count hyphenated words as one?', a: 'Yes. "well-known" is one word, matching Microsoft Word and Google Docs.' },
+      { q: 'Are numbers counted as words?', a: 'Yes — "2026" counts as a word, again matching mainstream word processors.' },
+      { q: 'Is my text stored?', a: 'No. Counting happens in your browser; nothing is transmitted or saved.' },
+    ],
+    related: ['case-converter', 'line-sorter', 'lorem-ipsum', 'text-diff'],
+  },
+  {
+    slug: 'url-parser',
+    name: 'URL Parser & Query String Splitter',
+    tagline: 'Break a URL into scheme, host, path, port, hash and a decoded table of query parameters.',
+    description:
+      'Parse any URL online into its components — protocol, subdomain, domain, port, path segments, hash — and see every query-string parameter decoded in a table. Copy params as JSON.',
+    category: 'Testing',
+    keywords: ['url parser', 'parse url', 'query string parser', 'url decoder', 'url components', 'split url', 'query parameters'],
+    howTo: [
+      'Paste a full URL including the scheme (https://).',
+      'Each component is listed with its own copy button; the query string is expanded into a key/value table with values already decoded.',
+      'Click Copy as JSON to grab the parameters as an object.',
+    ],
+    about: [
+      'A URL packs a lot into one line: scheme, credentials, host, port, path, query and fragment. When a link misbehaves — a tracking parameter lost, an encoded slash, the wrong port — pulling it apart is the fastest way to see what is actually being sent.',
+      'The parser uses the browser\u2019s WHATWG URL implementation, so its interpretation matches what Chrome, Firefox and Node.js will do with the same string, including normalisation of the host and default ports.',
+      'Repeated parameters (tag=a&tag=b) are listed separately, and values are percent-decoded so you can read UTF-8 text and spaces directly.',
+    ],
+    faq: [
+      { q: 'Why does it say the URL is invalid?', a: 'The scheme is probably missing. Relative URLs and bare domains (example.com/page) are not absolute URLs — add https://.' },
+      { q: 'What is the difference between host and domain?', a: 'Host is the full hostname (www.blog.example.com); domain is the registrable part (example.com); subdomain is what precedes it.' },
+    ],
+    related: ['url-encode-decode', 'json-formatter', 'base64-encode-decode', 'meta-tag-generator'],
+  },
+  {
+    slug: 'http-status-codes',
+    name: 'HTTP Status Codes Reference',
+    tagline: 'Every HTTP status code with a plain-English explanation — searchable, filterable by class.',
+    description:
+      'Complete list of HTTP status codes (1xx–5xx) with clear explanations of what each means and when it is used: 200, 301 vs 302, 401 vs 403, 404, 429, 500, 502, 503 and more.',
+    category: 'Testing',
+    keywords: ['http status codes', 'http response codes', 'status code list', '401 vs 403', '301 vs 302', '502 bad gateway meaning', 'http error codes'],
+    howTo: [
+      'Type a code or a word (e.g. "redirect", "timeout") into the search box.',
+      'Or filter by class — 2xx success, 3xx redirection, 4xx client error, 5xx server error.',
+      'Read the description to see what the server is telling you and how to respond.',
+    ],
+    about: [
+      'Every HTTP response starts with a three-digit status code. The first digit gives the class: 1xx informational, 2xx success, 3xx redirection, 4xx client error, 5xx server error. Learning the handful you meet daily — 200, 201, 204, 301, 302, 304, 400, 401, 403, 404, 429, 500, 502, 503 — covers most debugging.',
+      'The confusing pairs matter: 401 means "not authenticated" while 403 means "authenticated but not allowed"; 301 is cached permanently by browsers while 302 is not; 502 means the proxy could not reach your app while 503 means the app said it was busy.',
+      'For APIs, 422 is the conventional code for validation errors and 429 for rate limiting; both should carry a body or header explaining what to fix.',
+    ],
+    faq: [
+      { q: 'What is the difference between 401 and 403?', a: '401: the request has no valid credentials — log in. 403: credentials are fine but this user is not allowed — logging in again will not help.' },
+      { q: 'Should I use 301 or 302 for a redirect?', a: '301 (or 308) when the move is permanent and search engines should update their index; 302 (or 307) for temporary redirects such as A/B tests or maintenance pages.' },
+      { q: 'What causes a 502 Bad Gateway?', a: 'A reverse proxy or load balancer (nginx, Cloudflare, an ALB) could not get a valid response from the application server — it crashed, is restarting, or is listening on the wrong port.' },
+    ],
+    related: ['url-parser', 'jwt-decoder', 'json-formatter', 'cron-parser'],
+  },
+  {
+    slug: 'meta-tag-generator',
+    name: 'Meta Tag Generator (SEO, Open Graph, Twitter)',
+    tagline: 'Generate title, description, Open Graph and Twitter Card tags with a live search preview.',
+    description:
+      'Generate HTML meta tags for SEO and social sharing: title, description, canonical, robots, Open Graph and Twitter Card. Live Google-style preview with length warnings. Copy and paste into <head>.',
+    category: 'Generators',
+    keywords: ['meta tag generator', 'open graph generator', 'twitter card generator', 'seo meta tags', 'og tags generator', 'meta description generator', 'html meta tags'],
+    howTo: [
+      'Fill in the title, description, URL and image. Length counters warn when Google will truncate.',
+      'Check the search-result preview on the right.',
+      'Click Copy HTML and paste the block into the <head> of your page.',
+    ],
+    about: [
+      'Meta tags tell search engines and social networks what a page is about and how to display it. The title and description drive your search snippet; Open Graph tags control the card shown when the link is shared on Facebook, LinkedIn, WhatsApp and Slack; Twitter Card tags do the same for X.',
+      'Google typically shows about 60 characters of a title and 155 of a description before truncating. The generator counts them live and colours the field when you are close to or over the limit.',
+      'For the image, use a 1200×630 JPG or PNG under 1 MB with the key content centred — that ratio renders correctly on every major platform.',
+    ],
+    faq: [
+      { q: 'Do meta keywords still matter?', a: 'No. Google has ignored the keywords tag since 2009. It is included only for the few engines and internal tools that still read it; leave it blank otherwise.' },
+      { q: 'Why is my shared link showing the old image?', a: 'Platforms cache OG data. Use the Facebook Sharing Debugger or LinkedIn Post Inspector to refresh.' },
+      { q: 'Should the canonical URL include a trailing slash?', a: 'It should match exactly the URL that your server serves without redirecting — pick one form and use it everywhere.' },
+    ],
+    related: ['robots-txt-generator', 'url-parser', 'html-entities', 'word-counter'],
+  },
+  {
+    slug: 'robots-txt-generator',
+    name: 'Robots.txt Generator',
+    tagline: 'Build a valid robots.txt with per-crawler rules, sitemap links and an AI-bot block list.',
+    description:
+      'Generate a robots.txt file online. Add allow/disallow rules per user-agent, crawl-delay, sitemap URLs, and optionally block AI training crawlers (GPTBot, ClaudeBot, CCBot). Presets for WordPress and staging.',
+    category: 'Generators',
+    keywords: ['robots.txt generator', 'create robots.txt', 'robots txt example', 'block gptbot', 'robots.txt wordpress', 'disallow all robots'],
+    howTo: [
+      'Start from a preset or edit the default block: set the user-agent and list the paths to disallow or allow, one per line.',
+      'Add more blocks for specific crawlers, enter your sitemap URL, and tick the AI-crawler option if you want to opt out of model training.',
+      'Copy the output and save it as robots.txt in your site root.',
+    ],
+    about: [
+      'robots.txt is a plain-text file at the root of a site that tells well-behaved crawlers which paths they may fetch. It is the first thing Googlebot requests. It is not a security mechanism — anything listed is still publicly reachable — but it keeps crawlers out of admin areas, search-result pages and infinite calendar URLs that waste crawl budget.',
+      'Rules are grouped by User-agent; the first matching group applies, and a more specific path wins over a shorter one. An empty Disallow means "allow everything". Sitemap lines can appear anywhere and apply to all crawlers.',
+      'Blocking AI crawlers is a policy choice: it stops your content being used for model training by vendors that honour robots.txt, but it may also remove you from AI-powered search answers that could send traffic.',
+    ],
+    faq: [
+      { q: 'Does Disallow remove pages from Google?', a: 'Not reliably — Google can still index a blocked URL from external links, just without content. Use a noindex meta tag (and allow crawling) to keep a page out of results.' },
+      { q: 'Is Crawl-delay supported?', a: 'Bing and Yandex honour it; Google ignores it — set crawl rate in Search Console instead.' },
+      { q: 'Where does the file go?', a: 'The site root only: https://example.com/robots.txt. Subdirectory copies are ignored.' },
+    ],
+    related: ['meta-tag-generator', 'url-parser', 'http-status-codes', 'cron-parser'],
+  },
+  {
+    slug: 'line-sorter',
+    name: 'Sort Lines & Remove Duplicates',
+    tagline: 'Sort text lines alphabetically or numerically, dedupe, trim, reverse or shuffle.',
+    description:
+      'Sort lines of text online — A-Z, Z-A, numeric, by length, reverse or shuffle — and remove duplicate lines, trim whitespace and drop blanks. Free, instant, browser-based.',
+    category: 'Converters',
+    keywords: ['sort lines', 'remove duplicate lines', 'sort alphabetically online', 'dedupe list', 'sort text', 'shuffle lines', 'unique lines'],
+    howTo: [
+      'Paste a list with one item per line.',
+      'Choose a sort order and tick the clean-up options you want — remove duplicates, ignore case, trim whitespace, drop empty lines.',
+      'Copy the result. The counter shows how many lines were removed.',
+    ],
+    about: [
+      'Lists arrive messy: exported from spreadsheets, copied from logs, pasted from chat. Cleaning them usually means the same handful of steps — trim, dedupe, sort — which this tool does in one pass.',
+      'Numeric sort parses the leading number of each line, so "10" sorts after "2" instead of before it. Alphabetical sort is locale-aware, so accented characters land where a dictionary would put them.',
+      'Duplicate detection can ignore case, treating "Apple" and "apple" as the same entry — useful for email lists and tags.',
+    ],
+    faq: [
+      { q: 'Does sorting keep the first or last duplicate?', a: 'The first occurrence is kept; later duplicates are removed.' },
+      { q: 'Can I sort CSV rows?', a: 'Yes — each row is a line. Sorting is by the whole line, so it effectively sorts by the first column.' },
+      { q: 'Is there a line limit?', a: 'Hundreds of thousands of lines sort in well under a second.' },
+    ],
+    related: ['text-diff', 'case-converter', 'word-counter', 'json-to-csv'],
+  },
 ];
 
 export const toolBySlug = (slug: string) => TOOLS.find((t) => t.slug === slug);

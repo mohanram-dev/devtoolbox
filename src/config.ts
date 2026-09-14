@@ -50,3 +50,9 @@ export const BLOG = {
   privacy: 'https://9blog.in/privacy-policy/',
   terms: 'https://9blog.in/terms-and-disclaimer/',
 };
+
+/** "Support this site" links shown in the footer of every tools page. */
+export const SUPPORT = {
+  sponsors: 'https://github.com/sponsors/mohanram-dev',
+  repo: 'https://github.com/mohanram-dev/devtoolbox',
+};

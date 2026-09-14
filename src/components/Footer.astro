@@ -1,5 +1,5 @@
 ---
-import { SITE, BLOG } from '../config';
+import { SITE, BLOG, SUPPORT } from '../config';
 import { CATEGORIES, TOOLS, toolsInCategory } from '../data/tools';
 const year = new Date().getFullYear();
 ---
@@ -15,6 +15,15 @@ const year = new Date().getFullYear();
       <p class="muted mt-4 max-w-xs text-sm leading-6">
         {TOOLS.length} free developer utilities that run entirely in your browser. Nothing you paste is ever uploaded.
       </p>
+      <div class="mt-5 flex flex-wrap items-center gap-2 text-sm">
+        <span class="muted">Support this site:</span>
+        <a href={SUPPORT.sponsors} rel="noopener" target="_blank" class="inline-flex items-center gap-1.5 rounded-lg border line px-3 py-1.5 font-medium transition hover:border-pink-400 hover:text-pink-500">
+          <span aria-hidden="true">♥</span> GitHub Sponsors
+        </a>
+        <a href={SUPPORT.repo} rel="noopener" target="_blank" class="inline-flex items-center gap-1.5 rounded-lg border line px-3 py-1.5 font-medium transition hover:border-amber-400 hover:text-amber-500">
+          <span aria-hidden="true">★</span> Star on GitHub
+        </a>
+      </div>
     </div>
 
     {CATEGORIES.slice(0, 3).map((c) => (

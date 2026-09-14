@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "pnpm run og && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "og": "node --experimental-strip-types scripts/og.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.5",
@@ -36,9 +37,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/diff": "^8.0.0",
     "@types/js-beautify": "^1.14.3",
     "@types/qrcode": "^1.5.6",
+    "satori": "^0.33.4",
     "typescript": "^6.0.3"
   }
 }

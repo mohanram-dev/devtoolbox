@@ -7,7 +7,8 @@ Ad-supported hub of free, client-side developer tools. Built with Astro 7 + Reac
 | Command | What it does |
 |---|---|
 | `pnpm dev` | Dev server at http://localhost:4321 |
-| `pnpm build` | Static build to `dist/` (also generates `sitemap-index.xml`) |
+| `pnpm build` | Generates OG images, then static build to `dist/` (also generates `sitemap-index.xml`) |
+| `pnpm og` | Regenerate social-card PNGs only (`public/og.png`, `public/og/<slug>.png`) — add `--force` to redo all |
 | `pnpm preview` | Serve `dist/` locally |
 | `pnpm astro check` | Type-check `.astro` and `.tsx` files |
 
@@ -33,6 +34,8 @@ src/
     about / contact / privacy / terms / 404
 public/
   robots.txt, favicon.svg
+scripts/
+  og.mjs, fonts/            # Build-time Open Graph image generator (satori + resvg)
 ```
 
 ## Adding a tool
@@ -46,7 +49,6 @@ public/
 
 - `src/config.ts`: set `SITE.url` to your domain (drives canonical URLs + sitemap), plus name/contact email.
 - `public/robots.txt`: update the Sitemap URL.
-- Add a `public/og.png` (1200×630) and restore the `og:image` tag in `Base.astro` if you want rich link previews.
 - Deploy `dist/` to Cloudflare Pages, Vercel or Netlify (all free for static sites). Build command `pnpm build`, output dir `dist`.
 
 ## Turning on ads

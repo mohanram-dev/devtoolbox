@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+import { TOOLS } from '../data/tools';
+---
+
+<Base title={`About | ${SITE.name}`} description={`${SITE.name} is a collection of free, browser-based developer tools built for speed and privacy. Learn who makes it and why.`} path="/about/">
+  <article class="prose-tool mx-auto max-w-3xl">
+    <h1 class="text-3xl font-bold tracking-tight">About {SITE.name}</h1>
+    <p>
+      {SITE.name} is a growing collection of {TOOLS.length} small, fast utilities for everyday development work — the kind of thing you would otherwise
+      write a throwaway script for: formatting JSON, decoding a JWT, checking a cron schedule, hashing a string.
+    </p>
+
+    <h2>Why another tools site?</h2>
+    <p>Most online tools are slow, cluttered, or quietly send whatever you paste to a server. We built {SITE.name} with three rules:</p>
+    <ul>
+      <li><strong>Everything runs locally.</strong> Each tool is plain client-side JavaScript. Your data never leaves your browser.</li>
+      <li><strong>Pages must be fast.</strong> The site is statically generated and ships only the code a tool needs.</li>
+      <li><strong>No walls.</strong> No accounts, no usage limits, no paywalled features. The site is funded by unobtrusive ads.</li>
+    </ul>
+
+    <h2>Who builds it</h2>
+    <p>{SITE.name} is built and maintained by an independent developer. New tools are added regularly based on what people search for and ask about.</p>
+
+    <h2>Suggest a tool</h2>
+    <p>Missing something you use every day? <a href="/contact/" class="text-brand-600 underline">Tell us</a> — the most-requested tools get built first.</p>
+  </article>
+</Base>

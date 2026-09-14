@@ -1,0 +1,34 @@
+---
+import type { Tool } from '../data/tools';
+import Icon from './Icon.astro';
+
+interface Props {
+  tool: Tool;
+  compact?: boolean;
+}
+const { tool, compact = false } = Astro.props;
+
+/** Category → icon tile colours (light bg / text, dark variants). */
+const TINT: Record<string, string> = {
+  Formatters: 'bg-sky-100 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300',
+  Encoders: 'bg-violet-100 text-violet-600 dark:bg-violet-500/15 dark:text-violet-300',
+  Generators: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-300',
+  Converters: 'bg-amber-100 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300',
+  Testing: 'bg-rose-100 text-rose-600 dark:bg-rose-500/15 dark:text-rose-300',
+};
+const tint = TINT[tool.category];
+const shortName = tool.name.replace(/\s*\(.*\)$/, '');
+---
+
+<a href={`/tools/${tool.slug}/`} class={`card card-hover group flex gap-4 ${compact ? 'p-4' : 'p-5'}`}>
+  <span class={`grid ${compact ? 'h-9 w-9' : 'h-11 w-11'} shrink-0 place-items-center rounded-xl ${tint}`}>
+    <Icon name={tool.slug} class={compact ? 'h-4 w-4' : 'h-5 w-5'} />
+  </span>
+  <span class="min-w-0">
+    <span class="flex items-center gap-1.5 font-semibold leading-snug transition group-hover:text-brand-500">
+      {shortName}
+      <Icon name="arrow" class="h-3.5 w-3.5 -translate-x-1 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
+    </span>
+    {!compact && <span class="muted mt-1.5 block text-sm leading-6">{tool.tagline}</span>}
+  </span>
+</a>

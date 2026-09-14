@@ -1,0 +1,51 @@
+---
+import { SITE } from '../config';
+import { CATEGORIES } from '../data/tools';
+import Icon from './Icon.astro';
+---
+
+<header class="sticky top-0 z-40 border-b line bg-[color-mix(in_srgb,var(--color-surface)_80%,transparent)] backdrop-blur-xl">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+    <a href="/" class="flex items-center gap-2.5 text-[17px] font-bold tracking-tight">
+      <span class="bg-brand-gradient grid h-9 w-9 place-items-center rounded-xl font-mono text-[13px] font-semibold text-white shadow-[0_4px_14px_-4px_rgb(99_102_241/.7)]">{'</>'}</span>
+      {SITE.name}
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Categories">
+      {CATEGORIES.map((c) => (
+        <a
+          href={`/tools/#${c.name.toLowerCase()}`}
+          class="muted rounded-lg px-3 py-1.5 text-sm font-medium transition hover:bg-(--color-surface-2) hover:text-(--color-ink)"
+        >
+          {c.name}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="muted grid h-9 w-9 place-items-center rounded-lg border line transition hover:bg-(--color-surface-2) hover:text-(--color-ink)"
+        aria-label="Toggle dark mode"
+      >
+        <span class="hidden dark:block"><Icon name="sun" class="h-4 w-4" /></span>
+        <span class="dark:hidden"><Icon name="moon" class="h-4 w-4" /></span>
+      </button>
+      <a
+        href="/tools/"
+        class="bg-brand-gradient inline-flex h-9 items-center gap-1.5 rounded-lg px-3.5 text-sm font-semibold text-white shadow-[0_4px_14px_-4px_rgb(99_102_241/.6)] transition hover:brightness-110"
+      >
+        All tools
+        <Icon name="arrow" class="h-3.5 w-3.5" />
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('dark');
+    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch {}
+  });
+</script>

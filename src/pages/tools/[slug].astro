@@ -1,0 +1,174 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import ToolCard from '../../components/ToolCard.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE } from '../../config';
+import { TOOLS, toolBySlug } from '../../data/tools';
+import JsonFormatter from '../../components/tools/JsonFormatter';
+import Base64 from '../../components/tools/Base64';
+import UrlEncode from '../../components/tools/UrlEncode';
+import JwtDecoder from '../../components/tools/JwtDecoder';
+import RegexTester from '../../components/tools/RegexTester';
+import UuidGenerator from '../../components/tools/UuidGenerator';
+import HashGenerator from '../../components/tools/HashGenerator';
+import CronParser from '../../components/tools/CronParser';
+import TimestampConverter from '../../components/tools/TimestampConverter';
+import ColorConverter from '../../components/tools/ColorConverter';
+import TextDiff from '../../components/tools/TextDiff';
+import CaseConverter from '../../components/tools/CaseConverter';
+import PasswordGenerator from '../../components/tools/PasswordGenerator';
+
+
+export function getStaticPaths() {
+  return TOOLS.map((t) => ({ params: { slug: t.slug } }));
+}
+
+const { slug } = Astro.params;
+const tool = toolBySlug(slug!)!;
+
+const path = `/tools/${tool.slug}/`;
+const url = new URL(path, SITE.url).toString();
+const related = tool.related.map(toolBySlug).filter(Boolean);
+const title = `${tool.name} – Free Online Tool | ${SITE.name}`;
+const shortName = tool.name.replace(/\s*\(.*\)$/, '');
+const TINT: Record<string, string> = {
+  Formatters: 'bg-sky-100 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300',
+  Encoders: 'bg-violet-100 text-violet-600 dark:bg-violet-500/15 dark:text-violet-300',
+  Generators: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-300',
+  Converters: 'bg-amber-100 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300',
+  Testing: 'bg-rose-100 text-rose-600 dark:bg-rose-500/15 dark:text-rose-300',
+};
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: tool.name,
+    description: tool.description,
+    url,
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Any (web browser)',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: tool.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: `How to use the ${tool.name}`,
+    step: tool.howTo.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, text: s })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: new URL('/tools/', SITE.url).toString() },
+      { '@type': 'ListItem', position: 3, name: tool.name, item: url },
+    ],
+  },
+];
+---
+
+<Base title={title} description={tool.description} path={path} jsonLd={jsonLd}>
+  <nav aria-label="Breadcrumb" class="muted mb-6 flex items-center gap-1.5 text-sm">
+    <a href="/" class="hover:text-brand-500">Home</a>
+    <span class="opacity-50">/</span>
+    <a href="/tools/" class="hover:text-brand-500">Tools</a>
+    <span class="opacity-50">/</span>
+    <a href={`/tools/#${tool.category.toLowerCase()}`} class="hover:text-brand-500">{tool.category}</a>
+    <span class="opacity-50">/</span>
+    <span class="text-(--color-ink)">{shortName}</span>
+  </nav>
+
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
+    <article class="min-w-0">
+      <header class="mb-6 flex items-start gap-4">
+        <span class={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl ${TINT[tool.category]}`}>
+          <Icon name={tool.slug} class="h-7 w-7" />
+        </span>
+        <div>
+          <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl">{tool.name}</h1>
+          <p class="muted mt-2 text-lg leading-7">{tool.tagline}</p>
+        </div>
+      </header>
+
+      <AdSlot slot="inToolTop" format="horizontal" />
+
+      <section class="card overflow-hidden shadow-(--shadow-glow)" aria-label={tool.name}>
+        <div class="surface-2 flex items-center justify-between gap-3 border-b line px-4 py-2.5">
+          <div class="flex items-center gap-1.5">
+            <span class="h-2.5 w-2.5 rounded-full bg-rose-400"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+            <span class="muted ml-3 hidden font-mono text-xs sm:inline">{tool.slug}</span>
+          </div>
+          <span class="badge whitespace-nowrap py-0.5 text-[11px]">
+            <Icon name="shield" class="h-3 w-3 text-emerald-500" />
+            Runs locally
+          </span>
+        </div>
+        <div class="p-4 sm:p-6">
+          {/* Astro must see a static tag name to hydrate an island, so map slugs explicitly. */}
+          {slug === 'json-formatter' && <JsonFormatter client:load />}
+          {slug === 'base64-encode-decode' && <Base64 client:load />}
+          {slug === 'url-encode-decode' && <UrlEncode client:load />}
+          {slug === 'jwt-decoder' && <JwtDecoder client:load />}
+          {slug === 'regex-tester' && <RegexTester client:load />}
+          {slug === 'uuid-generator' && <UuidGenerator client:load />}
+          {slug === 'hash-generator' && <HashGenerator client:load />}
+          {slug === 'cron-parser' && <CronParser client:load />}
+          {slug === 'timestamp-converter' && <TimestampConverter client:load />}
+          {slug === 'color-converter' && <ColorConverter client:load />}
+          {slug === 'text-diff' && <TextDiff client:load />}
+          {slug === 'case-converter' && <CaseConverter client:load />}
+          {slug === 'password-generator' && <PasswordGenerator client:load />}
+        </div>
+      </section>
+
+      <AdSlot slot="inToolBottom" format="horizontal" />
+
+      <div class="prose-tool">
+        <h2>How to use the {shortName.toLowerCase()}</h2>
+        <ol>{tool.howTo.map((s) => <li>{s}</li>)}</ol>
+
+        <h2>About this tool</h2>
+        {tool.about.map((p) => <p>{p}</p>)}
+
+        <h2>Frequently asked questions</h2>
+        {tool.faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </article>
+
+    <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
+      <AdSlot slot="sidebar" format="rectangle" class="my-0 hidden lg:block" />
+      <div>
+        <h2 class="muted mb-3 text-xs font-semibold uppercase tracking-wider">Related tools</h2>
+        <div class="grid gap-3">
+          {related.map((t) => <ToolCard tool={t!} compact />)}
+        </div>
+      </div>
+      <div class="card p-4 text-sm">
+        <div class="flex items-center gap-2 font-semibold">
+          <Icon name="shield" class="h-4 w-4 text-emerald-500" />
+          Privacy first
+        </div>
+        <p class="muted mt-1.5 leading-6">This tool runs entirely in your browser. Nothing you enter is uploaded, logged or stored.</p>
+      </div>
+    </aside>
+  </div>
+</Base>

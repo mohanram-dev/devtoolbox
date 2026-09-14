@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+const updated = 'September 14, 2026';
+---
+
+<Base title={`Privacy Policy | ${SITE.name}`} description={`How ${SITE.name} handles your data: tools run locally in your browser, and we use cookies only for analytics and advertising.`} path="/privacy/">
+  <article class="prose-tool mx-auto max-w-3xl">
+    <h1 class="text-3xl font-bold tracking-tight">Privacy Policy</h1>
+    <p class="muted text-sm">Last updated: {updated}</p>
+
+    <h2>The short version</h2>
+    <p>
+      Every tool on {SITE.name} runs entirely in your web browser. The text, tokens, passwords or files you enter are processed on your own device and are
+      <strong>never transmitted to, logged by, or stored on</strong> our servers.
+    </p>
+
+    <h2>Information we collect</h2>
+    <p>We do not require accounts and do not ask for personal information. Like most websites, we automatically receive standard technical data when you visit, such as your IP address, browser type, referring page and the pages you view. This data is used in aggregate to understand traffic and keep the site running.</p>
+
+    <h2>Cookies and advertising</h2>
+    <p>
+      {SITE.name} is supported by advertising. We use Google AdSense to display ads. Google, as a third-party vendor, uses cookies to serve ads based on your prior visits to this and other websites. Google&apos;s use of advertising cookies enables it and its partners to serve ads to you based on your visit to this site and/or other sites on the Internet.
+    </p>
+    <ul>
+      <li>You may opt out of personalised advertising by visiting <a href="https://www.google.com/settings/ads" rel="noopener" class="text-brand-600 underline">Google Ads Settings</a>.</li>
+      <li>You can also opt out of third-party vendors&apos; use of cookies at <a href="https://www.aboutads.info/choices/" rel="noopener" class="text-brand-600 underline">aboutads.info</a>.</li>
+      <li>Learn how Google uses data when you use partner sites at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener" class="text-brand-600 underline">policies.google.com</a>.</li>
+    </ul>
+    <p>Visitors in the European Economic Area, the United Kingdom and Switzerland are shown a consent dialog before any advertising cookies are set, in accordance with GDPR and the IAB Transparency &amp; Consent Framework.</p>
+
+    <h2>Analytics</h2>
+    <p>We may use a privacy-friendly analytics service to count page views and understand which tools are popular. Analytics data is aggregated and does not identify you personally.</p>
+
+    <h2>Local storage</h2>
+    <p>Some tools may remember your preferences (for example, indent size) using your browser&apos;s local storage. This data stays on your device and can be cleared at any time through your browser settings.</p>
+
+    <h2>Children&apos;s privacy</h2>
+    <p>{SITE.name} is a general-audience website and does not knowingly collect personal information from children under 13.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy from time to time. The date at the top of the page shows when it was last revised.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about privacy? Email <a href={`mailto:${SITE.contactEmail}`} class="text-brand-600 underline">{SITE.contactEmail}</a>.</p>
+  </article>
+</Base>

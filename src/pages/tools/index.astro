@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import ToolCard from '../../components/ToolCard.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE } from '../../config';
+import { CATEGORIES, TOOLS, toolsInCategory } from '../../data/tools';
+
+const TINT: Record<string, string> = {
+  Formatters: 'bg-sky-100 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300',
+  Encoders: 'bg-violet-100 text-violet-600 dark:bg-violet-500/15 dark:text-violet-300',
+  Generators: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-300',
+  Converters: 'bg-amber-100 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300',
+  Testing: 'bg-rose-100 text-rose-600 dark:bg-rose-500/15 dark:text-rose-300',
+};
+---
+
+<Base
+  title={`All Developer Tools (${TOOLS.length}) | ${SITE.name}`}
+  description={`Browse all ${TOOLS.length} free online developer tools on ${SITE.name}: formatters, encoders, generators, converters and testing utilities.`}
+  path="/tools/"
+>
+  <div class="pt-6">
+    <span class="badge">{TOOLS.length} tools</span>
+    <h1 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">All tools</h1>
+    <p class="muted mt-2 max-w-xl">Grouped by category. All free, all client-side, all instant.</p>
+  </div>
+
+  <nav class="mt-6 flex flex-wrap gap-2" aria-label="Jump to category">
+    {CATEGORIES.map((c) => (
+      <a href={`#${c.name.toLowerCase()}`} class="badge transition hover:border-brand-400 hover:text-brand-500">{c.name}</a>
+    ))}
+  </nav>
+
+  <AdSlot slot="headerBanner" format="horizontal" />
+
+  {CATEGORIES.map((c) => {
+    const items = toolsInCategory(c.name);
+    if (!items.length) return null;
+    return (
+      <section id={c.name.toLowerCase()} class="mt-12 scroll-mt-24">
+        <div class="flex items-center gap-3">
+          <span class={`grid h-9 w-9 place-items-center rounded-lg ${TINT[c.name]}`}><Icon name={c.name} class="h-4.5 w-4.5" /></span>
+          <h2 class="text-xl font-bold tracking-tight">{c.name}</h2>
+          <span class="muted text-sm">· {items.length}</span>
+        </div>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((t) => <ToolCard tool={t} />)}
+        </div>
+      </section>
+    );
+  })}
+</Base>

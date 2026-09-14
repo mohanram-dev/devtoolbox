@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+
+<Base title={`Contact | ${SITE.name}`} description={`Get in touch with ${SITE.name} to report a bug, suggest a tool or ask a question.`} path="/contact/">
+  <article class="prose-tool mx-auto max-w-3xl">
+    <h1 class="text-3xl font-bold tracking-tight">Contact</h1>
+    <p>Found a bug, have a tool request, or want to report a problem with an ad? We read every message.</p>
+    <p>
+      Email: <a href={`mailto:${SITE.contactEmail}`} class="text-brand-600 underline">{SITE.contactEmail}</a>
+    </p>
+    <h2>Tool requests</h2>
+    <p>Tell us what you would use it for and what existing tool (if any) you use today. Requests that come up repeatedly get prioritised.</p>
+    <h2>Bug reports</h2>
+    <p>Include the tool name, the input that misbehaved (if it is not sensitive), what you expected and what happened, plus your browser and operating system.</p>
+  </article>
+</Base>

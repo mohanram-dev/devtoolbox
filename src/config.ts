@@ -11,6 +11,8 @@ export const SITE = {
   author: 'DevToolbox',
   twitter: '@devtoolbox',
   contactEmail: 'hello@devtoolbox.example.com',
+  // Google Search Console HTML-tag verification token (content attribute only).
+  googleSiteVerification: 'LPXpnqUJDSq5ntAtroq0e03hDfOL3iTk4O_iMeiiamg',
 };
 
 /**

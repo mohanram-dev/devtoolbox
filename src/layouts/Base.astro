@@ -76,5 +76,15 @@ const canonical = new URL(path, SITE.url).toString();
       <slot />
     </main>
     <Footer />
+    {
+      SITE.cloudflareAnalyticsToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: SITE.cloudflareAnalyticsToken })}
+        />
+      )
+    }
   </body>
 </html>

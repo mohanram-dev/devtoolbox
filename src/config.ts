@@ -13,6 +13,8 @@ export const SITE = {
   contactEmail: 'hello@devtoolbox.example.com',
   // Google Search Console HTML-tag verification token (content attribute only).
   googleSiteVerification: 'LPXpnqUJDSq5ntAtroq0e03hDfOL3iTk4O_iMeiiamg',
+  // Cloudflare Web Analytics beacon token (empty string disables it).
+  cloudflareAnalyticsToken: 'c448272b534540d1a3e4f1253fc49b78',
 };
 
 /**

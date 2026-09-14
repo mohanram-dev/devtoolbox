@@ -18,14 +18,22 @@ export const SITE = {
 };
 
 /**
- * Ad configuration. Ads stay as visible placeholders until `enabled` is true,
- * so you can see the layout while the AdSense application is pending.
+ * Ad configuration.
+ *
+ * Lifecycle:
+ *  1. Apply to AdSense → set `adsenseClient`. The AdSense script is then loaded on every
+ *     page (needed for site verification and for Auto ads), and public/ads.txt is generated.
+ *  2. Approved → create ad units in the AdSense dashboard and paste their IDs into `slots`.
+ *     Each slot renders as soon as it has an ID. Slots without an ID render nothing in
+ *     production (a labelled placeholder is shown in `pnpm dev` only).
+ *  3. Optionally set `autoAds: true` to let Google place additional units automatically.
  */
 export const ADS = {
-  enabled: false,
-  // e.g. 'ca-pub-1234567890123456'
+  // e.g. 'ca-pub-1234567890123456' — leave empty until you have applied.
   adsenseClient: '',
-  // Named slots → AdSense slot IDs. Create these in the AdSense dashboard.
+  // Let AdSense insert ads automatically in addition to the fixed slots below.
+  autoAds: false,
+  // Named slots → AdSense ad-unit IDs (the data-ad-slot value, e.g. '1234567890').
   slots: {
     headerBanner: '',
     inToolTop: '',

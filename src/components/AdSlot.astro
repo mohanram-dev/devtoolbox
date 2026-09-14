@@ -1,7 +1,8 @@
 ---
 /**
- * Renders an AdSense unit when ADS.enabled, otherwise a subtle labelled
- * placeholder so the layout can be reviewed before the ad account is approved.
+ * An ad placement. Renders a real AdSense unit once the slot has an ID in ADS.slots;
+ * until then it renders a labelled placeholder in dev and nothing at all in production,
+ * so visitors (and AdSense reviewers) never see empty boxes.
  */
 import { ADS } from '../config';
 
@@ -14,30 +15,34 @@ interface Props {
 
 const { slot, format = 'horizontal', class: cls = '' } = Astro.props;
 const slotId = ADS.slots[slot];
-const live = ADS.enabled && ADS.adsenseClient && slotId;
+const live = Boolean(ADS.adsenseClient && slotId);
+const showPlaceholder = !live && import.meta.env.DEV;
 
+// Reserve height so the ad doesn't shift content when it loads (Core Web Vitals: CLS).
 const minH = { horizontal: 'min-h-[90px]', rectangle: 'min-h-[250px]', vertical: 'min-h-[600px]' }[format];
 ---
 
-<div class={`my-6 ${cls}`} data-ad-slot={slot}>
-  {
-    live ? (
-      <>
-        <ins
-          class="adsbygoogle block"
-          data-ad-client={ADS.adsenseClient}
-          data-ad-slot={slotId}
-          data-ad-format={format === 'horizontal' ? 'horizontal' : 'auto'}
-          data-full-width-responsive="true"
-        />
-        <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </>
-    ) : (
-      <div
-        class={`surface-2 grid w-full ${minH} place-items-center rounded-xl border border-dashed line text-[11px] font-medium uppercase tracking-widest text-(--color-ink-2)/60`}
-      >
-        Advertisement
+{
+  live && (
+    <div class={`my-6 ${minH} ${cls}`} data-ad-slot={slot}>
+      <ins
+        class="adsbygoogle block"
+        style="display:block"
+        data-ad-client={ADS.adsenseClient}
+        data-ad-slot={slotId}
+        data-ad-format={format === 'horizontal' ? 'horizontal' : 'auto'}
+        data-full-width-responsive="true"
+      />
+      <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  )
+}
+{
+  showPlaceholder && (
+    <div class={`my-6 ${cls}`} data-ad-slot={slot}>
+      <div class={`surface-2 grid w-full ${minH} place-items-center rounded-xl border border-dashed line text-[11px] font-medium uppercase tracking-widest text-(--color-ink-2)/60`}>
+        Ad · {slot} (dev only)
       </div>
-    )
-  }
-</div>
+    </div>
+  )
+}

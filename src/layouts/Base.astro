@@ -67,13 +67,18 @@ const ogImageUrl = new URL(ogImage, SITE.url).toString();
     </script>
 
     {
-      ADS.enabled && ADS.adsenseClient && (
+      ADS.adsenseClient && (
         <script
           is:inline
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS.adsenseClient}`}
           crossorigin="anonymous"
         />
+      )
+    }
+    {
+      ADS.adsenseClient && ADS.autoAds && (
+        <script is:inline set:html={`(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"${ADS.adsenseClient}",enable_page_level_ads:true});`} />
       )
     }
   </head>

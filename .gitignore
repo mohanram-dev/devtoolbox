@@ -3,6 +3,7 @@ dist/
 # generated social images (see scripts/og.mjs)
 public/og/
 public/og.png
+public/ads.txt
 # generated types
 .astro/
 

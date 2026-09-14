@@ -53,8 +53,11 @@ scripts/
 
 ## Turning on ads
 
-1. Apply for Google AdSense once the site is live with the privacy/terms/about/contact pages in place.
-2. In `src/config.ts` set `ADS.enabled = true`, `ADS.adsenseClient = 'ca-pub-…'`, and fill `ADS.slots` with the slot IDs you create in the AdSense dashboard (`headerBanner`, `inToolTop`, `inToolBottom`, `sidebar`).
-3. Rebuild. `AdSlot.astro` swaps the dashed placeholders for real `<ins class="adsbygoogle">` units.
+All ad wiring lives in `src/config.ts` → `ADS`.
+
+1. **Apply to AdSense.** Set `ADS.adsenseClient = 'ca-pub-…'` and push. This loads the AdSense script on every page (required for verification) and generates `public/ads.txt` at build time. Nothing visible changes yet.
+2. **After approval**, create ad units in the AdSense dashboard (display ads, responsive) and paste each unit's `data-ad-slot` ID into `ADS.slots`: `headerBanner` (home + all-tools page), `inToolTop` / `inToolBottom` (above and below every tool), `sidebar` (300×250 next to the tool on desktop). A slot renders as soon as it has an ID; empty slots render nothing in production.
+3. Optional: `ADS.autoAds = true` lets Google place extra units automatically.
+4. Consent for EEA/UK visitors: enable Google's built-in CMP under **AdSense → Privacy & messaging → GDPR** — no code changes needed, it injects with the same script.
 
 Once you pass ~50k sessions/month, apply to a premium network (Raptive, Mediavine/Journey, Ezoic) — RPMs are typically 3–5× AdSense.

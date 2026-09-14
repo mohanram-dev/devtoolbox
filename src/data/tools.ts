@@ -877,6 +877,181 @@ export const TOOLS: Tool[] = [
     ],
     related: ['text-diff', 'case-converter', 'word-counter', 'json-to-csv'],
   },
+  {
+    slug: 'bcrypt-generator',
+    name: 'Bcrypt Hash Generator & Verifier',
+    tagline: 'Hash passwords with bcrypt at any cost factor, or check a password against an existing hash.',
+    description:
+      'Generate bcrypt password hashes online with a configurable cost factor (4–15), and verify a plain-text password against a bcrypt hash. Runs in your browser — nothing is uploaded.',
+    category: 'Generators',
+    keywords: ['bcrypt generator', 'bcrypt hash', 'bcrypt online', 'bcrypt verify', 'password hash generator', 'bcrypt cost factor', 'bcrypt checker'],
+    howTo: [
+      'Enter the password and choose a cost factor (10–12 is typical for web apps).',
+      'Click Generate. Each run produces a different hash because a fresh random salt is used.',
+      'To verify, switch to Verify, paste an existing hash and the password — you get a match / no match verdict.',
+    ],
+    about: [
+      'bcrypt is the long-standing recommendation for storing passwords. Unlike SHA-256, it is deliberately slow and has a tunable cost factor: each +1 doubles the work, so a hash that takes 100 ms today can be made 200 ms when hardware gets faster. That slowness is what makes brute-forcing stolen hashes impractical.',
+      'The output string carries everything needed to verify later — algorithm version, cost and salt — so you store the whole string and never need to keep the salt separately. Verification re-hashes the candidate password with the embedded salt and compares.',
+      'This tool uses bcryptjs, a pure-JavaScript implementation compatible with the bcrypt used by PHP password_hash(), Python passlib, Ruby, Go and Node. Hashes are computed on your device.',
+    ],
+    faq: [
+      { q: 'Why is the hash different every time?', a: 'A new random 16-byte salt is generated for every hash and embedded in the output. Both hashes are valid for the same password.' },
+      { q: 'What cost factor should I use?', a: 'Aim for ~100–250 ms on your server: usually 10–12 in 2026. Higher for admin accounts, never below 10 in production.' },
+      { q: 'What is the difference between $2a$, $2b$ and $2y$?', a: 'Minor revisions of the same algorithm. $2b$ is current; $2y$ is PHP\u2019s name for the same thing. Modern libraries verify all three.' },
+      { q: 'Can I hash passwords longer than 72 bytes?', a: 'bcrypt truncates input at 72 bytes. For very long passphrases, pre-hash with SHA-256 or use Argon2.' },
+    ],
+    related: ['hash-generator', 'hmac-generator', 'password-generator', 'jwt-decoder'],
+  },
+  {
+    slug: 'hmac-generator',
+    name: 'HMAC Generator (SHA-256, SHA-512)',
+    tagline: 'Compute HMAC signatures with a secret key — hex and Base64 output for every SHA variant.',
+    description:
+      'Generate HMAC-SHA1, HMAC-SHA256, HMAC-SHA384 and HMAC-SHA512 signatures online from a message and secret key. Hex and Base64 output. Useful for webhooks and API signing.',
+    category: 'Generators',
+    keywords: ['hmac generator', 'hmac sha256', 'hmac sha256 online', 'hmac calculator', 'webhook signature', 'hmac sha512', 'api signature generator'],
+    howTo: [
+      'Paste the message body exactly as it will be sent (whitespace matters).',
+      'Enter the shared secret. Tick "hex-encoded" if your key is given as hex bytes rather than text.',
+      'Copy the signature in hex or Base64, whichever your API expects.',
+    ],
+    about: [
+      'An HMAC is a keyed hash: only someone holding the secret can produce or verify it. That makes it the standard way to sign webhooks (Stripe, GitHub, Shopify), API requests (AWS SigV4) and tokens (JWT HS256) — the receiver recomputes the HMAC and compares it to the one sent.',
+      'When a webhook signature check fails, the cause is almost always a mismatch in the exact bytes signed: a re-serialised JSON body, a trailing newline, a different key encoding. Paste the raw body here to see which value your server should be producing.',
+      'Signatures are computed with the Web Crypto API in your browser; the secret never leaves your machine.',
+    ],
+    faq: [
+      { q: 'HMAC vs plain hash?', a: 'A plain SHA-256 of a message can be recomputed by anyone. An HMAC requires the secret, so it proves the sender knew the key and the message was not altered.' },
+      { q: 'Which output format do I need?', a: 'Check the API docs: GitHub and Stripe use hex; AWS and many JWT libraries use Base64 (sometimes URL-safe, without padding).' },
+      { q: 'Is HMAC-SHA1 still safe?', a: 'HMAC-SHA1 is not broken the way plain SHA-1 collisions are, but new systems should use SHA-256 or better.' },
+    ],
+    related: ['hash-generator', 'bcrypt-generator', 'jwt-decoder', 'base64-encode-decode'],
+  },
+  {
+    slug: 'text-to-binary',
+    name: 'Text to Binary / Binary to Text',
+    tagline: 'Convert text to binary, hex, decimal or octal byte codes and back again.',
+    description:
+      'Convert text to binary (and binary to text) online, plus hex, decimal and octal byte encodings. UTF-8 aware, custom separators, instant results. Free and private.',
+    category: 'Converters',
+    keywords: ['text to binary', 'binary to text', 'binary translator', 'text to hex', 'ascii to binary', 'binary code translator', 'hex to text'],
+    howTo: [
+      'Choose Text → Code or Code → Text, and the format: binary, hex, decimal or octal.',
+      'Type or paste your input. For decoding, bytes can be separated by spaces, commas or newlines — or pasted as one continuous binary/hex stream.',
+      'Copy the result.',
+    ],
+    about: [
+      'Computers store text as bytes. In ASCII and UTF-8, the letter A is 65 — 01000001 in binary, 41 in hex, 101 in octal. This converter shows exactly which bytes a string becomes and reverses the process.',
+      'Text is encoded as UTF-8, so accented characters and emoji become multi-byte sequences (é is C3 A9, 🚀 is F0 9F 9A 80). That matches what every modern language, database and web page uses.',
+      'Binary strings are shown as 8-bit groups so they line up one-to-one with bytes, which is how they appear in networking guides and CS courses.',
+    ],
+    faq: [
+      { q: 'Why does one character become more than 8 bits?', a: 'Only ASCII (English letters, digits, punctuation) fits in one byte. Other characters need 2–4 bytes in UTF-8.' },
+      { q: 'Can I decode binary without spaces?', a: 'Yes — a continuous stream is split into 8-bit chunks automatically. The same applies to hex (2-char chunks).' },
+    ],
+    related: ['number-base-converter', 'unicode-escape', 'base64-encode-decode', 'hash-generator'],
+  },
+  {
+    slug: 'timezone-converter',
+    name: 'Time Zone Converter',
+    tagline: 'Convert a date and time across multiple time zones at once, with DST handled automatically.',
+    description:
+      'Convert times between time zones online. Pick a date, time and source zone, then compare it across UTC, New York, London, India, Tokyo and any IANA zone. Daylight saving applied automatically.',
+    category: 'Converters',
+    keywords: ['time zone converter', 'timezone converter', 'utc to ist', 'est to ist', 'pst to gmt', 'time difference calculator', 'world clock converter'],
+    howTo: [
+      'Set the date and time and the zone it is in (your local zone is pre-selected).',
+      'The table shows the same instant in every listed zone, with the UTC offset and a +1 / −1 day marker where the date changes.',
+      'Add any IANA zone (e.g. Europe/Madrid) or use the quick chips.',
+    ],
+    about: [
+      'Scheduling across zones goes wrong in two classic ways: forgetting daylight saving, and forgetting that the calendar date can differ. This converter uses the browser\u2019s built-in IANA time zone database, so DST transitions and historical offsets are correct for any date.',
+      'Zones are named by region (America/New_York) rather than abbreviation because abbreviations are ambiguous — CST is Central Standard Time in the US, China Standard Time, and Cuba Standard Time.',
+      'Nothing is sent to a server; the conversion runs entirely on your device.',
+    ],
+    faq: [
+      { q: 'What is the difference between UTC and GMT?', a: 'For practical purposes none — both are the zero offset. UTC is the technical standard; GMT is the UK winter time zone that happens to equal it.' },
+      { q: 'Why does IST show +5:30?', a: 'India uses a half-hour offset from UTC. Nepal (+5:45) and parts of Australia (+9:30) also use non-whole-hour offsets.' },
+      { q: 'How do I convert EST to IST?', a: 'Set the source zone to America/New_York and add Asia/Kolkata. The tool applies the correct 9:30 or 10:30 hour gap depending on US daylight saving.' },
+    ],
+    related: ['timestamp-converter', 'date-difference', 'cron-parser'],
+  },
+  {
+    slug: 'css-gradient-generator',
+    name: 'CSS Gradient Generator',
+    tagline: 'Design linear, radial and conic gradients visually and copy the CSS or Tailwind class.',
+    description:
+      'Free CSS gradient generator. Build linear, radial or conic gradients with multiple colour stops and angle control, preview live, and copy the background-image CSS or Tailwind arbitrary value.',
+    category: 'Generators',
+    keywords: ['css gradient generator', 'linear gradient generator', 'gradient css', 'radial gradient generator', 'tailwind gradient', 'background gradient css', 'conic gradient'],
+    howTo: [
+      'Pick a gradient type and drag the angle slider.',
+      'Adjust colour stops — change colours, positions, add up to six stops — or start from a preset.',
+      'Copy the CSS declaration or the Tailwind arbitrary-value class.',
+    ],
+    about: [
+      'CSS gradients are generated by the browser, so they are resolution-independent, weightless compared to an image, and can be animated or themed. Linear gradients follow an angle, radial gradients spread from a centre, and conic gradients sweep around a point — handy for pie charts and colour wheels.',
+      'Good-looking gradients usually move between colours that are close in hue (indigo → violet) or pass through a mid stop to avoid a muddy grey in the middle; the presets are chosen with that in mind.',
+      'The Tailwind output uses an arbitrary value so it works without extending the theme; for a reusable design token, move the value into your tailwind config or a CSS custom property.',
+    ],
+    faq: [
+      { q: 'Why is there a grey band in the middle of my gradient?', a: 'Two complementary colours (e.g. blue and orange) mix to grey in RGB space. Add an intermediate stop or pick colours closer in hue.' },
+      { q: 'Can I use a gradient on text?', a: 'Yes: apply it as background-image with background-clip: text and color: transparent.' },
+      { q: 'Are gradients supported in all browsers?', a: 'Linear and radial are universal; conic gradients work in every modern browser (Chrome 69+, Safari 12.1+, Firefox 83+).' },
+    ],
+    related: ['box-shadow-generator', 'color-converter', 'code-beautifier'],
+  },
+  {
+    slug: 'box-shadow-generator',
+    name: 'CSS Box Shadow Generator',
+    tagline: 'Layer soft, realistic box-shadows with live preview and copy the CSS.',
+    description:
+      'CSS box-shadow generator with multiple layers, inset shadows, colour and opacity control, light/dark preview and presets (soft, card, floating, glow). Copy the CSS in one click.',
+    category: 'Generators',
+    keywords: ['box shadow generator', 'css box shadow', 'box shadow css generator', 'inset shadow generator', 'css shadow', 'card shadow css', 'drop shadow css'],
+    howTo: [
+      'Start from a preset or adjust the offset, blur, spread, colour and opacity sliders.',
+      'Add a second or third layer for depth — a tight, faint shadow plus a large, softer one looks most natural.',
+      'Check the result on light and dark backgrounds, then copy the CSS.',
+    ],
+    about: [
+      'A single box-shadow rarely looks right. Real objects cast a sharp contact shadow close to the surface and a diffuse ambient shadow further away, which is why design systems like Material and Tailwind define elevations as two or three stacked shadows. This generator lets you build and tweak those layers together.',
+      'Use low opacity (10–25%) with a tinted colour rather than pure black — shadows on a coloured background look better tinted toward that colour. Negative spread keeps large blurs from bleeding out at the sides.',
+      'Inset shadows draw inside the element; they are useful for pressed buttons and input fields.',
+    ],
+    faq: [
+      { q: 'Does box-shadow affect layout?', a: 'No. Shadows are painted outside the box and never push other elements — but they can be clipped by an ancestor with overflow: hidden.' },
+      { q: 'Is box-shadow bad for performance?', a: 'Large blurs on many elements can cost paint time, especially when animated. Animate opacity of a pseudo-element with the shadow instead of the shadow itself.' },
+      { q: 'box-shadow vs filter: drop-shadow?', a: 'box-shadow follows the box; drop-shadow follows the visible shape (including transparent PNG edges). Use drop-shadow for images and icons.' },
+    ],
+    related: ['css-gradient-generator', 'color-converter', 'code-beautifier'],
+  },
+  {
+    slug: 'date-difference',
+    name: 'Date Difference Calculator (Days Between Dates)',
+    tagline: 'Count the days, weeks, months, business days and years between two dates.',
+    description:
+      'Calculate the number of days between two dates online — plus weeks, months, years, business days, hours and minutes. Option to include the end date. Instant and free.',
+    category: 'Converters',
+    keywords: ['days between dates', 'date difference calculator', 'date calculator', 'how many days until', 'business days calculator', 'weeks between dates', 'days since'],
+    howTo: [
+      'Pick a start and end date (the end defaults to today).',
+      'Read the duration as years/months/days and as total days, weeks, hours and business days.',
+      'Tick "Include end date" when both endpoints should count, e.g. for hotel nights vs. days of a trip.',
+    ],
+    about: [
+      'Counting days by hand is easy to get wrong across month boundaries and leap years. This calculator works in UTC on calendar dates so the result is independent of time zones and DST.',
+      'Business days exclude Saturdays and Sundays; public holidays vary by country and are not subtracted. The year/month/day breakdown follows calendar rules: from 31 January to 28 February is one month.',
+      'Typical uses: project durations, age in days, countdowns to a launch, notice periods, and checking SLA windows.',
+    ],
+    faq: [
+      { q: 'Should I include the end date?', a: 'If you are counting "days of an event" (Monday to Friday = 5 days), yes. If you are counting "days elapsed" or nights, no.' },
+      { q: 'Does it handle leap years?', a: 'Yes — 29 February is counted whenever it falls inside the range.' },
+      { q: 'How many days are in a year?', a: '365, or 366 in a leap year. The tool always uses the real calendar rather than an average.' },
+    ],
+    related: ['timestamp-converter', 'timezone-converter', 'cron-parser'],
+  },
 ];
 
 export const toolBySlug = (slug: string) => TOOLS.find((t) => t.slug === slug);

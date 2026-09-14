@@ -20,6 +20,7 @@
     "@types/react-dom": "^19.3.0",
     "ajv": "^8.20.0",
     "astro": "^7.3.2",
+    "bcryptjs": "^3.0.3",
     "cron-parser": "^5.10.1",
     "cronstrue": "^3.26.0",
     "diff": "^9.0.0",

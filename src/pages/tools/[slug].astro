@@ -39,6 +39,13 @@ import HttpStatusCodes from '../../components/tools/HttpStatusCodes';
 import MetaTagGenerator from '../../components/tools/MetaTagGenerator';
 import RobotsTxtGenerator from '../../components/tools/RobotsTxtGenerator';
 import LineSorter from '../../components/tools/LineSorter';
+import BcryptGenerator from '../../components/tools/BcryptGenerator';
+import HmacGenerator from '../../components/tools/HmacGenerator';
+import TextBinary from '../../components/tools/TextBinary';
+import TimezoneConverter from '../../components/tools/TimezoneConverter';
+import GradientGenerator from '../../components/tools/GradientGenerator';
+import BoxShadowGenerator from '../../components/tools/BoxShadowGenerator';
+import DateDifference from '../../components/tools/DateDifference';
 
 
 export function getStaticPaths() {
@@ -174,6 +181,13 @@ const jsonLd = [
           {slug === 'meta-tag-generator' && <MetaTagGenerator client:load />}
           {slug === 'robots-txt-generator' && <RobotsTxtGenerator client:load />}
           {slug === 'line-sorter' && <LineSorter client:load />}
+          {slug === 'bcrypt-generator' && <BcryptGenerator client:load />}
+          {slug === 'hmac-generator' && <HmacGenerator client:load />}
+          {slug === 'text-to-binary' && <TextBinary client:load />}
+          {slug === 'timezone-converter' && <TimezoneConverter client:load />}
+          {slug === 'css-gradient-generator' && <GradientGenerator client:load />}
+          {slug === 'box-shadow-generator' && <BoxShadowGenerator client:load />}
+          {slug === 'date-difference' && <DateDifference client:load />}
         </div>
       </section>
 
